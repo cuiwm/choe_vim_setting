@@ -468,8 +468,8 @@ endfunction
 
 "------ctags setting--------------
 "         ctags --sort=yes  --languages=c,c++ --links=yes --c-kinds=+px --c++-kinds=+px --fields=+liaSKz --extra=+q -R -f tags /cui/work/im/trunk/
-map <F5> :!ctags --sort=yes  --languages=c,c++ --links=yes --c-kinds=+px --c++-kinds=+px --fields=+liaSKz --extra=+q -R -f tags /cui/work/im/trunk/<CR><CR>:TlistUpdate<CR>
-imap <F5> <ESC>:!ctags --sort=yes  --languages=c,c++ --links=yes --c-kinds=+px --c++-kinds=+px --fields=+liaSKz --extra=+q -R -f tags /cui/work/im/trunk/<CR><CR>:TlistUpdate<CR>
+map <F5> :!ctags --sort=yes  --languages=c,c++ --links=no --c-kinds=+lpx --c++-kinds=+lpx --fields=+liaSKz --extra=+q -R -f /cui/work/im/trunk/tags /cui/work/im/trunk/<CR><CR>:TlistUpdate<CR>
+imap <F5> <ESC>:!ctags --sort=yes  --languages=c,c++ --links=no --c-kinds=+lpx --c++-kinds=+lpx --fields=+liaSKz --extra=+q -R -f /cui/work/im/trunk/tags /cui/work/im/trunk/<CR><CR>:TlistUpdate<CR>
 
 " vi -t tag
 " :ts (ts 助记字 :tagslist)
