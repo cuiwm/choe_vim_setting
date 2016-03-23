@@ -492,7 +492,7 @@ set tags+=/cui/work/im/tags
 "set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
 "set termencoding=utf-8
 "set encoding=utf-8
-"set fileencodings=ucs-bom,utf-8,cp936
+set fileencodings=ucs-bom,utf-8,cp936
 "set fileencoding=utf-8
 
 set nu
@@ -606,7 +606,7 @@ func SetTitle()
    if &filetype == 'sh' 
      call setline(1,"\#########################################################################") 
      call append(line("."), "\# File Name: ".expand("%")) 
-     call append(line(".")+1, "\# Author: xgod") 
+     call append(line(".")+1, "\# Author: andrew Choe") 
      call append(line(".")+2, "\# mail: xgod@163.com") 
      call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
      call append(line(".")+4,"\#########################################################################") 
