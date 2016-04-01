@@ -622,17 +622,36 @@ func SetTitle()
      call append(line(".")+5, "")
   endif
   if &filetype == 'cpp'
-     call append(line(".")+6, "#include<iostream>")
+     call append(line(".")+6, "#include <iostream>")
      call append(line(".")+7, "using namespace std;")
      call append(line(".")+8, "")
+     call append(line(".")+9, "int main(int argc, char* argv[])")
+     call append(line(".")+10, "{")
+     call append(line(".")+11, "")
+     call append(line(".")+12, "return 0;")
+     call append(line(".")+13, "}")
    endif
   if &filetype == 'c'
-    call append(line(".")+6, "#include<stdio.h>")
+    call append(line(".")+6, "#include <stdio.h>")
     call append(line(".")+7, "")
+    call append(line(".")+8, "")
+    call append(line(".")+9, "int main(int argc, char* argv[])")
+    call append(line(".")+10, "{")
+    call append(line(".")+11, "")
+    call append(line(".")+12, "return 0;")
+    call append(line(".")+13, "}")
    endif
    "新建文件后，自动定位到文件末尾
-   autocmd BufNewFile * normal G
+   "autocmd BufNewFile * normal G
+   autocmd BufNewFile,BufRead   *.c,*.h     1;/^{
 endfunc 
  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "F2去空行
-nnoremap <F2> :g/^\s*$/d<CR>
+"nnoremap <F2> :g/^\s*$/d<CR>
+imap <F2> <Esc>:w<CR>
+map <F2> :w<CR>
+imap <F9> <Esc>:!make -j8<CR>
+map <F9> :!make -j8<CR>
+"解释<C-R>是插入某个寄存器的值 ，=是表达式寄存器的意思。所以这句话是在命令行插入expand("<cword>")的值，也就是当前光标下的单词。其实在<C-R>后再输入<C-W>就是当前光标下单词的意思，<C-R><C-W>与<C-R>=expand("<cword>")应该是等效的。
+"nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+map <F6> :!man -a <C-R><C-W><CR>
