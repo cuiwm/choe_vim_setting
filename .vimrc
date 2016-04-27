@@ -488,7 +488,7 @@ set tags+=/cui/work/im/tags
 
 "set shortmess=atI
 "设置粘贴模式格式无错位现象
-"set paste
+set paste
 "set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
 "set termencoding=utf-8
 "set encoding=utf-8
