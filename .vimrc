@@ -468,15 +468,17 @@ endfunction
 
 "------ctags setting--------------
 "         ctags --sort=yes  --languages=c,c++ --links=yes --c-kinds=+px --c++-kinds=+px --fields=+liaSKz --extra=+q -R -f tags /cui/work/im/trunk/
-map <F5> :!ctags --sort=yes  --languages=c,c++ --links=no --c-kinds=+lpx --c++-kinds=+lpx --fields=+liaSKz --extra=+q -R -f /cui/work/im/trunk/tags /cui/work/im/trunk/<CR><CR>:TlistUpdate<CR>
-imap <F5> <ESC>:!ctags --sort=yes  --languages=c,c++ --links=no --c-kinds=+lpx --c++-kinds=+lpx --fields=+liaSKz --extra=+q -R -f /cui/work/im/trunk/tags /cui/work/im/trunk/<CR><CR>:TlistUpdate<CR>
+"links=yes :fellow the link dir's tags 
+"ctags -f tags /prepath
+map <F5> :!ctags --sort=yes  --languages=c,c++ --links=yes --c-kinds=+lpx --c++-kinds=+lpx --fields=+liaSKz --extra=+q -R -f /cui/work/im/trunk/tags /cui/work/im/trunk/<CR><CR>:TlistUpdate<CR>
+imap <F5> <ESC>:!ctags --sort=yes  --languages=c,c++ --links=yes --c-kinds=+lpx --c++-kinds=+lpx --fields=+liaSKz --extra=+q -R -f /cui/work/im/trunk/tags /cui/work/im/trunk/<CR><CR>:TlistUpdate<CR>
 
 " vi -t tag
 " :ts (ts 助记字 :tagslist)
 " Ctrl + ]  g+ ] Ctrl + T
 "set autochdir表示自动切换目录的意思, set tags=tags;表示自动查找, 这两句同时设置vim即可实现递归的tags查找, 注意: set tags=tags;这一句的最后有一个分号, 这个分号是不能省略的. vim的配置文件使用的是vim自己的脚步语言. 这里是少数几个在行尾需要使用分号的地方之一.
 set autochdir 
-set tags=tags;
+set tags=./tags,tags;/cui
 
 "search multi dirs
 "如果你有多个tags需要使用,也可以在同一个语句中加入多个路径,每个路径用","隔开
@@ -524,7 +526,7 @@ set nocompatible "关闭vi兼容
 
 set cscopequickfix=s-,c-,d-,i-,t-,e-
 source ~/cscope_maps.vim
-
+"cs add /x/y/z/cscope.out /prepath (for prefix path for cscope.out)
 cs add /cui/work/im/trunk/cscope.out /cui/work/im/trunk
 
 "Tlist
@@ -648,10 +650,27 @@ endfunc
  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "F2去空行
 "nnoremap <F2> :g/^\s*$/d<CR>
+
 imap <F2> <Esc>:w<CR>
 map <F2> :w<CR>
+"F3 .h <=>.c
+imap <F3> <Esc>:A<CR>
+map <F3> :A <CR>
+imap <F4> <Esc>:bd<CR>
+map <F4> :bd<CR>
+
 imap <F9> <Esc>:!make -j8<CR>
 map <F9> :!make -j8<CR>
 "解释<C-R>是插入某个寄存器的值 ，=是表达式寄存器的意思。所以这句话是在命令行插入expand("<cword>")的值，也就是当前光标下的单词。其实在<C-R>后再输入<C-W>就是当前光标下单词的意思，<C-R><C-W>与<C-R>=expand("<cword>")应该是等效的。
 "nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
 map <F6> :!man -a <C-R><C-W><CR>
+map <F7> :%s/<C-R><C-W>/
+map <F10> <Esc>:!killall AServer<CR>
+map <F11> <Esc>:!./AServer -d<CR>
+
+function Choe_add_cui_cs()
+    cs add /cui/KServer/service/cscope.out /cui/KServer/service
+    cs show
+endfunction
+
+

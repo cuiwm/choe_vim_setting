@@ -39,7 +39,12 @@ if has("cscope")
 
     " add any cscope database in current directory
     if filereadable("cscope.out")
-        cs add cscope.out  
+        let s:prepath=getcwd()
+        "echo s:prepath
+        let s:exec_str="cs add cscope.out " . s:prepath
+        execute s:exec_str
+        execute 'set path+='.getcwd().'**7'
+        "cs add cscope.out  
     " else add the database pointed to by environment variable 
     elseif $CSCOPE_DB != ""
         cs add $CSCOPE_DB
