@@ -674,3 +674,7 @@ function Choe_add_cui_cs()
 endfunction
 
 
+"删除多个buffer :help :bdelete
+"		    :.,$-bdelete    " delete buffers from the current one to
+"				    " last but one
+"		    :%bdelete	    " delete all buffers
