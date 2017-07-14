@@ -302,13 +302,26 @@ endtry
 " => Status line
 """"""""""""""""""""""""""""""
 " Always show the status line
+" You have to escape all the blank characters and the  characters. To escape a character you have to use \, so if you want a whitespace you have to do  “\ ".
+" help statusline
 set laststatus=2
 "set laststatus=1    " 启动显示状态行(1),总是显示状态行(2)  
 
 "set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}   "状态行显示的内容  
 
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+
+if has("statusline")
+ "set statusline=%<%f\ %h%m%r%w%y\ %{&ff}%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P 
+ set statusline=[%n]%m%y%<%F\ %h%m%r%w\ %=cwd:%r%<%{getcwd()}\ 0x%B\ %{&ff}%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l/%L,%c%V%)\ %P
+ "set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P 
+ "set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%c\",getftime(expand(\"%:p\")))}%=\ lin:%l\,%L\ col:%c%V\ pos:%o\ ascii:%b\ %P
+ "set statusline=[%n]\ %<%F\ \ \ [%M%R%H%W%Y][%{&ff}]\ \ %=\ line:%l/%L\ col:%c\ \ \ %p%%\ \ \ @%{strftime(\"%H:%M:%S\")}
+
+"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+"set statusline=%F%m%r%h%w\ (%{&ff}){%Y}[%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -409,6 +422,16 @@ function! CmdLine(str)
     emenu Foo.Bar
     unmenu Foo
 endfunction 
+
+function Choe_add_yu_cs()
+    cs add /cui/2017/yu/trunk/service/cscope.out /cui/2017/yu/trunk/service
+    cs show
+endfunction
+
+function Choe_add_cui_cs()
+    cs add /cui/RoomServer/service/cscope.out /cui/RoomServer/service
+    cs show
+endfunction
 
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
@@ -556,8 +579,8 @@ let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1 
 "let g:miniBufExplModSelTarget = 1 
 "let g:miniBufExplorerMoreThanOne=0
-imap <F3> <C-X><C-O>
-imap <F2> <C-X><C-I>
+"imap <F3> <C-X><C-O>
+"imap <F2> <C-X><C-I>
 
 "还需确认在 vimrc 中开启了 filetype 选项，不然 OmniComplete 无法自动识别 C/C++ 文件类型进行补全。
 "在插入模式编辑 C/C++ 源文件时按下 . 或 -> 或 ::，或者手动按下 Ctrl+X Ctrl+O 后就会弹出自动补全窗口，此时可以用 Ctrl+N 和 Ctrl+P 上下移动光标进行选择。
@@ -648,6 +671,7 @@ func SetTitle()
    autocmd BufNewFile,BufRead   *.c,*.h     1;/^{
 endfunc 
  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" :map可列出当前映射的快捷键
 "F2去空行
 "nnoremap <F2> :g/^\s*$/d<CR>
 
