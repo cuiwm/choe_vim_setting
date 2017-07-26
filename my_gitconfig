@@ -1,0 +1,27 @@
+git config --global color.status auto
+git config --global color.branch auto
+git config --global color.interactive auto
+git config --global color.diff auto
+git config --global user.name "cuiwm"  
+git config --global user.email xcuiwm@hotmail.com 
+git config --global core.editor vim
+
+git config --global diff.tool vimdiff
+git config --global difftool.prompt false
+git config --global alias.d difftool
+
+git config --global merge.tool vimdiff
+git config --global mergetool.prompt false
+
+
+git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+#git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+
+#vi .gitconfig
+#
+#[alias]
+#lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+#git lg
+#
+#git lg -p
