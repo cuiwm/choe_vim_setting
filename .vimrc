@@ -487,14 +487,26 @@ endfunction
 "#如果你的vim有使用echofunc插件来显示函数的参数定义, 那么在使用ctags生产索引文件时需要使用如下附加参数: ctags -R --fields=+lS
 "ctags默认生成的索引文件只包含了对C语言的语法分析, 如果你需要ctags支持对C++语法分析. 需要使用下面的命令: 　　ctags -R --c++-kinds=+p --fields=+iaS --extra=+q
 "如果你在C语言编写的代码中使用上面提到的C++命令生成tags, 那么你将惊讶的发现, 当你希望通过ctags跳转到光标下函数定义的地方的时候, vim总是跳转到这个函数定义的地方, "原因是ctags的C++命令增加了额外的语法分析以便支持C++更加复杂的语法结构, 这种额外的语法分析用在C语言中的时候就会出现跳转默认定位到函数声明的地方.
+"According to ctags's man page, "This option may be specified as many times as desired." So, it's like this:
+"ctags -R --exclude=.git --exclude=node_modules --exclude=test
+"first make a list of files you'd want tags for, then run ctags on this list only
+"find -name your-files -o -path your-path > list.txt; ctags -L list.txt
+"
+"$ ctags -R --exclude=dir1 --exclude=dir2 --exclude=dir3 .
+"which may be a bit verbose but that's what aliases and mappings and so on are for. As an alternative, you get this from the second paragraph:
+"$ ctags -R --exclude=@.ctagsignore .
+"with the following in .ctagsignore:
+"dir1
+"dir2
+"dir3
 
 
 "------ctags setting--------------
 "         ctags --sort=yes  --languages=c,c++ --links=yes --c-kinds=+px --c++-kinds=+px --fields=+liaSKz --extra=+q -R -f tags /cui/work/im/trunk/
 "links=yes :fellow the link dir's tags 
 "ctags -f tags /prepath
-map <F5> :!ctags --sort=yes  --languages=c,c++ --links=yes --c-kinds=+lpx --c++-kinds=+lpx --fields=+liaSKz --extra=+q -R -f /cui/work/im/trunk/tags /cui/work/im/trunk/<CR><CR>:TlistUpdate<CR>
-imap <F5> <ESC>:!ctags --sort=yes  --languages=c,c++ --links=yes --c-kinds=+lpx --c++-kinds=+lpx --fields=+liaSKz --extra=+q -R -f /cui/work/im/trunk/tags /cui/work/im/trunk/<CR><CR>:TlistUpdate<CR>
+map <F5> :!ctags --sort=yes  --languages=c,c++ --links=yes --c-kinds=+lpx --c++-kinds=+lpx --fields=+liaSKz --extra=+q -R --exclude=third -f /cui/work/im/trunk/tags /cui/work/im/trunk/<CR><CR>:TlistUpdate<CR>
+imap <F5> <ESC>:!ctags --sort=yes  --languages=c,c++ --links=yes --c-kinds=+lpx --c++-kinds=+lpx --fields=+liaSKz --extra=+q -R --exclude=third -f /cui/work/im/trunk/tags /cui/work/im/trunk/<CR><CR>:TlistUpdate<CR>
 
 " vi -t tag
 " :ts (ts 助记字 :tagslist)

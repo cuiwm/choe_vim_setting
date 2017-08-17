@@ -45,16 +45,19 @@
 #ignore .o, .a
 *.[oa]
 *.lo
+*.bak
 *.log
-.deps/          <---忽略整个文件夹
-#libtool
-#/service/*.sh
-#cscope*
-#tags
-#*.cap
-#/INSTALL
-#/ac
-#Makefile.in
+.deps/        
+libtool
+*.sh
+*.out
+cscope*
+tags
+*.cap
+/INSTALL
+/ac
+Makefile.in
+autom4te.cache
 #/test/buffer   <-===/表示整个项目的根目录
 #/test/third/
 
