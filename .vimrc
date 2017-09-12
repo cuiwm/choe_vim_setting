@@ -198,11 +198,14 @@ set tabstop=4 "set ts=4
 set shiftwidth=4 "set sw=4
 
 " 现在你再打开vim，按下tab，再按backspace，你会发现tab出来的缩进只需要backspace一次就能删除，这足以说明这段空白是tab；然后你再次修改vimrc，并加入：
-" set expandtab
-" 或
-" set et
+" set expandtab 或 " set et
 " 再次打开vim，你会发现tab出来的空白已经变成空格了，而这个时候一个tab就真正成为4个空格了，而不仅仅是4个空格的缩进距离。这才是我们真正想要的。
-set expandtab
+"  *** missing separator. Stop." 写makefile时出现这个错误提示 是表示makefile中的命令前没有使用TAB。
+" 造成的原因可能有:
+" 1. 命令前没有使用TAB,
+" 2. 在VIM的配置文件"/etc/vimrc"中使用了"set expandtab".
+" 因为"set expandtab"会将TAB转换成空格
+" set expandtab
 
 "另一个方法是使用vim的modeline，当别人打开这个文件的时候会自动使用相同的配置。什么是modeline呢？就是往文件里面写入特定的行，当vim打开这个文件的时候会自动读取这一行的参数配置并调整自己的设置到这个配置，例如你可能经常会看到在有些源码的文件末尾会出现这样的行：
 "# vim:et:ts=4:sw=4:
