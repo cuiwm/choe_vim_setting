@@ -105,7 +105,8 @@ set whichwrap+=<,>,h,l
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
-  set mouse=a
+  "set mouse=a  Method that shift+drag paste vim context don't work on mac. 
+  set mouse=v
   set selection=exclusive
   set selectmode=mouse,key
 endif
@@ -707,13 +708,36 @@ map <F7> :%s/<C-R><C-W>/
 map <F10> <Esc>:!killall AServer<CR>
 map <F11> <Esc>:!./AServer -d<CR>
 
-function Choe_add_cui_cs()
-    cs add /cui/KServer/service/cscope.out /cui/KServer/service
-    cs show
-endfunction
+"function Choe_add_cui_cs()
+"    cs add /cui/KServer/service/cscope.out /cui/KServer/service
+"    cs show
+"endfunction
 
 
 "删除多个buffer :help :bdelete
 "		    :.,$-bdelete    " delete buffers from the current one to
 "				    " last but one
 "		    :%bdelete	    " delete all buffers
+
+"http://vim.wikia.com/wiki/Configuring_the_cursor
+"Not all terminals support this, but xterm, rxvt and Terminator do. Recent versions of gnome-terminal support the sequence to change color, but not the one to restore the color to the default. Add the following to ~/.vimrc:
+
+if &term =~ "xterm\\|rxvt"
+  " use an orange cursor in insert mode
+  let &t_SI = "\<Esc>]12;orange\x7"
+  " use a red cursor otherwise
+  let &t_EI = "\<Esc>]12;red\x7"
+  silent !echo -ne "\033]12;red\007"
+  " reset cursor when vim exits
+  autocmd VimLeave * silent !echo -ne "\033]112\007"
+  " use \003]12;gray\007 for gnome-terminal and rxvt up to version 9.21
+endif
+
+"CursorLine高亮显示光标所在的屏幕行：
+"set cursorline
+
+"CursorColumn高亮显示光标所在的屏幕列：
+"set cursorcolumn
+
+"同时启用光标行和光标列，将显示“十字架”光标
+set cursorline cursorcolumn
