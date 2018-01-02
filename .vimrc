@@ -566,7 +566,9 @@ set nocompatible "关闭vi兼容
 set cscopequickfix=s-,c-,d-,i-,t-,e-
 source ~/cscope_maps.vim
 "cs add /x/y/z/cscope.out /prepath (for prefix path for cscope.out)
-cs add /cui/work/im/trunk/cscope.out /cui/work/im/trunk
+if filereadable("/cui/work/im/trunk/cscope.out")
+	cs add /cui/work/im/trunk/cscope.out /cui/work/im/trunk
+endif
 
 "Tlist
 "let Tlist_Auto_Open=1
@@ -712,7 +714,6 @@ map <F11> <Esc>:!./AServer -d<CR>
 "    cs add /cui/KServer/service/cscope.out /cui/KServer/service
 "    cs show
 "endfunction
-
 
 "删除多个buffer :help :bdelete
 "		    :.,$-bdelete    " delete buffers from the current one to
