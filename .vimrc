@@ -742,3 +742,42 @@ endif
 
 "同时启用光标行和光标列，将显示“十字架”光标
 set cursorline cursorcolumn
+
+if &term =~ "xterm"
+	let &t_SI = "\<Esc>]12;purple\x7"
+	let &t_EI = "\<Esc>]12;blue\x7"
+endif
+
+highlight Cursor ctermfg=15 ctermbg=21 guifg=#ffffff guibg=#0000ff
+
+"CursorLine高亮显示光标所在的屏幕行：
+"set cursorline
+
+"CursorColumn高亮显示光标所在的屏幕列：
+"set cursorcolumn
+
+"同时启用光标行和光标列，将显示“十字架”光标
+set cursorline cursorcolumn
+
+" Change cursor shape between insert and normal mode in iTerm2.app
+if $TERM_PROGRAM =~ "iTerm"
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+endif
+
+"search with no flicker http://vim.wikia.com/wiki/Highlight_all_search_pattern_matches
+:nnoremap <F8> :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
+
+"Press Space to turn off highlighting and clear any message already displayed.
+:nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
+" Press F4 to toggle highlighting on/off, and show current value.
+:noremap <F4> :set hlsearch! hlsearch?<CR>
+
+"Or, press return to temporarily get out of the highlighted search.
+:nnoremap <CR> :nohlsearch<CR><CR>
+
+"Highlighting can be enabled on Vim startup, when reading the viminfo file. Add the following to your vimrc if you want Vim to start with no search highlighting:
+
+":set viminfo^=h
+
