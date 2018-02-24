@@ -14,3 +14,5 @@ if [ -f ${HOME}/.vimrc ] ; then
 fi
 
 cp -v .vimrc  ${HOME}/.vimrc
+cp -v cscope_maps.vim ${HOME}/
+cp -rv .vim  ${HOME}/
